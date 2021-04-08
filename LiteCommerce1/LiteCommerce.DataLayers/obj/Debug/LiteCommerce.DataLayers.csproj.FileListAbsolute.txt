@@ -1,0 +1,27 @@
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DataLayers.dll
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DataLayers.pdb
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DomainModel.dll
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DomainModel.pdb
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csprojAssemblyReference.cache
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csproj.CoreCompileInputs.cache
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csproj.CopyComplete
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.dll
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.pdb
+E:\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DataLayers.dll
+E:\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DataLayers.pdb
+E:\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DomainModel.dll
+E:\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DomainModel.pdb
+E:\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csprojAssemblyReference.cache
+E:\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csproj.CoreCompileInputs.cache
+E:\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csproj.CopyComplete
+E:\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.dll
+E:\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.pdb
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DataLayers.dll
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DataLayers.pdb
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DomainModel.dll
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DomainModel.pdb
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csprojAssemblyReference.cache
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csproj.CoreCompileInputs.cache
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csproj.CopyComplete
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.dll
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.pdb

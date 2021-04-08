@@ -1,0 +1,155 @@
+﻿@model LiteCommerce.DomainModel.Product
+@{
+   
+    List<SelectListItem> listCategory = SelectListHelper.ListCategories();
+    List<SelectListItem> listSupplier = SelectListHelper.ListSuppliers();
+    int i=0;
+}
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Information Product</h3>
+        <a class="pull-right btn" onclick="goBack()">Back to list</a>
+
+        <script>
+            function goBack() {
+              window.history.back();
+            }
+        </script>
+       
+    </div>
+    <div class="box-body">
+
+        <form role="form" method="post" action="~/Product/Control">
+            <div class="box-body row">
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-5">
+
+                            <img src="@Model.PhotoPath" style="width: 100%; height: 250px; object-fit: contain;" alt="Alternate Text" />
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Name Product:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span>@Model.ProductName</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Category:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    @foreach (var item in listCategory)
+                                    {
+                                        if (Convert.ToInt32(item.Value) == Model.CategoryID)
+                                        {
+                                            <span>@item.Text</span>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Supplier:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    @foreach (var item in listSupplier)
+                                    {
+                                        if (Convert.ToInt32(item.Value) == Model.SupplierID)
+                                        {
+
+                                            <span>@item.Text</span>
+                                        }
+                                    }
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Quantity Per Unit:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span>@Model.QuantityPerUnit</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Unit Price:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span>@Model.UnitPrice</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right"><b>Description:</b></span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div>@Model.Descriptions</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-header with-border">
+                <h3 class="box-title">Product Attribute</h3>
+            </div>
+            <div class="box box-success">
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="sw-30">
+                                    <input type="checkbox" />
+                                </th>
+                                <th class="sw-50">#</th>
+                              
+                                <th class="sw-200">Attribute Name</th>
+                                <th class="sw-200">Attribute Value</th>
+                                <th class="sw-200">Display Order</th>
+                                <th class="sw-100"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-align">
+                            @foreach (var item in ViewData["Attribute"] as List<LiteCommerce.DomainModel.ProductAttribute>)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="productIDs" value=" @item.AttributeID" />
+                                    </td>
+                                    <td>
+                                        @(++i)
+                                    </td>
+                                   
+                                    <td>
+                                        @item.AttributeName
+                                    </td>
+                                    <td>
+                                        @item.AttributeValues
+                                    </td>
+                                    <td>
+                                        @item.DisplayOrder
+                                    </td>
+                                    <td class="text-center">
+                                        <!-- Button trigger modal -->
+                                        <a href="~/Product/Input/@item.ProductID" class="btn btn-primary center-block">
+                                            <i class="fa fa-info"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer pull-right">
+            </div>
+        </form>
+    </div>
+</div>

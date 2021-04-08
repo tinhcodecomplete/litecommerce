@@ -1,0 +1,51 @@
+﻿@model LiteCommerce.DomainModel.Shipper
+@{
+
+}
+<div class="box-header with-border">
+    <h3 class="box-title">@ViewBag.message</h3>
+    <a class="pull-right" onclick="goBack()">Back to list</a>
+
+    <script>
+            function goBack() {
+              window.history.back();
+            }
+    </script>
+
+</div>
+<form role="form" action="~/Shipper/Input" method="post">
+    <div class="box box-primary">
+        <div class="box-body">
+
+            <div class="row">
+                <input type="hidden" class="form-control" name="ShipperID" value="@Model.ShipperID">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-building"></i>
+                            </div>
+                            <input type="text" class="form-control" name="CompanyName" value="@Model.CompanyName">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <input type="text" class="form-control" value="@Model.Phone" name="Phone">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <a href="~/Shipper" type="button" class="btn btn-danger"><span><i class="fa"></i></span> Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

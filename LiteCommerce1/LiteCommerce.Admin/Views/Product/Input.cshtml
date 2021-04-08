@@ -1,0 +1,305 @@
+﻿@model LiteCommerce.DomainModel.Product
+@{
+    List<SelectListItem> selectListCategory = SelectListHelper.ListCategories();
+    List<SelectListItem> selectListSupplier = SelectListHelper.ListSuppliers();
+    int i = 0;
+}
+
+<form action="~/Product/Input" method="post" role="form">
+
+    <div class="container-fluid row lc-margin-bottom">
+        <div class="col-sm-8">
+
+        </div>
+        <div class="col-md-4 text-right">
+
+           
+            <a class="pull-right btn" onclick="goBack()">Back to list</a>
+
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+        </div>
+    </div>
+    <div class="box box-primary">
+
+        <div class="box-body">
+
+            <input type="hidden" name="ProductID" value="@Model.ProductID" />
+            <div class="form-group">
+                <label>Categories:</label>
+                @Html.DropDownListFor(m => m.CategoryID, SelectListHelper.ListCategories(), new { @class = "form-control" })
+               
+
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Product Name:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-gift"></i>
+                            </div>
+                            <input type="text" class="form-control" name="ProductName" value="@Model.ProductName">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Supplier Name:</label>
+
+                        <div>
+                            @Html.DropDownListFor(m => m.SupplierID, SelectListHelper.ListSuppliers(), new { @class = "form-control" })
+                           
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Quantity Per Unit:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-tint"></i>
+                            </div>
+                            <input type="text" class="form-control" name="QuantityPerUnit" value="@Model.QuantityPerUnit" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Unit Price:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <input type="text" class="form-control " name="UnitPrice" value="@Model.UnitPrice" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div style="display:block;">
+                            <label>Descriptions:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-comments"></i>
+
+                                </div>
+                                <textarea rows="10" cols="50" class=" form-control" name="Descriptions">@Model.Descriptions</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div style="display:block;">
+                            <label for="exampleInputFile">Photo</label>
+                            <div class="input-group">
+                                <div style="height:120px;width:220px;background-color:lightsteelblue;padding:0 ">
+                                    <img id="pictureUpload" src="@Model.PhotoPath" alt="avatar" style="height:120px;width:220px;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inline" style="margin:3px 0;">
+                            <input type="text" name="PhotoPath" id="PhotoPath" class="form-control" style="display:inline-block; width:220px" value="@Model.PhotoPath" />
+                            <input type="file" name="FileUpload" id="FileUpload" accept="image/*" style="display:none" />
+                            <input type="button" id="btnUpload" value="Chọn ảnh" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    @section Upload
+                        {
+                        <script>
+                            $(function () {
+                                $('#btnUpload').click(function () {
+                                    $('#FileUpload').trigger('click');
+                                });
+                                // Bat su kien khi thay doi du lieu cua fileupload
+                                $('#FileUpload').change(function () {
+                                    //Kiem tra trinh duyet co ho tro formdata hay khong
+                                    if (window.FormData !== undefined) {
+                                        //Lay du lieu tren fileupload
+                                        var fileUpload = $('#FileUpload').get(0);
+                                        var files = fileUpload.files;
+                                        //tao doi tuong form data
+                                        var formData = new FormData();
+                                        formData.append('file', files[0]);
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '/Product/ProcessUpload',
+                                            contentType: false, // khong co header
+                                            processData: false, //khong xu ly du lieu
+                                            data: formData,
+                                            success: function (urlImage) {
+                                                $('#pictureUpload').attr('src', urlImage);
+                                                $('#PhotoPath').val(urlImage);
+                                            },
+                                            error: function (err) {
+                                                alert('Co loi xay ra: ' + err.statusText);
+                                            }
+                                        });
+                                    }
+                                })
+                            });
+                        </script>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="box-footer">
+            <div class="pull-left">
+                <button type="submit" class="btn btn-primary "> <i class="fa fa-save"></i>Save</button>
+                <a href="~/Product" type="button" class="btn btn-danger ">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+</form>
+@if (Model.ProductID != 0)
+{
+   
+<form action="~/Product/DeleteProductAttribute" method="post">
+    <div class="row">
+        <div class="col-sm-7">
+            <h4 style="font-weight: 600; margin-bottom: 20px; margin-left: 12px">Information Product Attribute</h4>
+        </div>
+        <div class="col-sm-5 pull-right">
+            <button type="submit" class="btn btn-danger pull-right">
+                <i class="fa fa-trash"></i> Delete product Attribute
+            </button>
+            <button type="button" data-toggle="modal" data-target="#add-product_attr" class="btn btn-success pull-right">
+                <i class="fa fa-plus"></i> Add Product Attribute
+            </button>
+
+
+        </div>
+    </div>
+    <input type="hidden" name="productID" value="@Model.ProductID" />
+    <div class="box-body box box-success">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" name="name" value="" class="listCheck" />
+                    </th>
+                    <th class="text-center">#</th>
+                    <th>ProductID</th>
+                    <th> Attribute Name </th>
+                    <th> Attribute Value </th>
+                    <th> Display Order </th>
+                    <th style="width: 80px" class="text-center">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewData["ProducAttribute"] != null)
+                {
+                    foreach (var item in ViewData["ProducAttribute"] as List<LiteCommerce.DomainModel.ProductAttribute>)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="attributesIDs" value="@item.AttributeID" class="checkItem" />
+                            </td>
+                            <td>@(++i)</td>
+                            <td>@item.ProductID</td>
+                            <td>@item.AttributeName</td>
+                            <td>@item.AttributeValues</td>
+                            <td>@item.DisplayOrder</td>
+                            <td class="text-center">
+                                <button class="btn btn-default edit-product_attr" type="button" data-toggle="modal" data-target="#edit-product_attr_@item.AttributeID"><i class="fa fa-edit"></i></button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+        
+</form>
+}
+
+<div class="modal fade" id="add-product_attr" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title"  style="display: inline;">ADD PRODUCT ATTRIBUTE</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style="display: inline;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="~/Product/InputProductAttribute" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="AttributeID" value="0" />
+                    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                    <div class="form-group">
+                        <label>Attribute Name </label>
+                        <input class="form-control" type="text" name="AttributeName" value="" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>Attribute Value</label>
+                        <input class="form-control" type="text" name="AttributeValues" value="" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>Display Order</label>
+                        <input class="form-control" type="number" name="DisplayOrder" value="" required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@if (ViewData["ProducAttribute"] != null)
+{
+    foreach (var item in ViewData["ProducAttribute"] as List<LiteCommerce.DomainModel.ProductAttribute>)
+    {
+        <div class="modal fade" id="edit-product_attr_@item.AttributeID" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title"style="display: inline;">EDIT PRODUCT ATTRIBUTE</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"style="display: inline;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="~/Product/InputProductAttribute" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" class="AttributeID" name="AttributeID" value="@item.AttributeID" />
+                            <input type="hidden" name="ProductID" value="@Model.ProductID" />
+
+                           
+                                <input type="hidden" value="@Model.ProductID"  />
+                           
+
+                            <div class="form-group">
+                                <label>Attribute Name </label>
+                                <input class="AttributeName form-control" type="text" name="AttributeName" value="@item.AttributeName" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Attribute Value</label>
+                                <input class="AttributeValue form-control" type="text" name="AttributeValues" value="@item.AttributeValues" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Display Order</label>
+                                <input class="DisplayOrder form-control" type="number" name="DisplayOrder" value="@item.DisplayOrder" required />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+

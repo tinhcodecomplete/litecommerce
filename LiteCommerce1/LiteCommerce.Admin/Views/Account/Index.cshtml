@@ -1,0 +1,273 @@
+﻿@model LiteCommerce.DomainModel.Employee
+@{
+    ViewBag.Title = "User Profile";
+    List<SelectListItem> lstCountry = SelectListHelper.ListOfCountries();
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-md-4">
+                    <div style="display:block;">
+                        <label for="exampleInputFile">Photo</label>
+                        <div class="input-group">
+                            <div style="height:250px;width:350px;background-color:lightsteelblue;padding:0">
+                                <img id="pictureUpload1" src="@Model.PhotoPath" alt="avatar" style="height:250px;width:350px;" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <div class="pull-right text-bold">Full Name:</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="pull-left">@Model.LastName @Model.FirstName</div>
+                        </div>
+
+                        <hr style="width: 100%" />
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <div class="pull-right text-bold">BirthDate:</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="pull-left">@Model.BirthDate.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <hr style="width: 100%" />
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <div class="pull-right text-bold">HireDate:</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="pull-left">@Model.HireDate.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <hr style="width: 100%" />
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <div class="pull-right text-bold">Address:</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="pull-left">@Model.Address</div>
+                        </div>
+                        <hr style="width: 100%" />
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <div class="pull-right text-bold">City:</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="pull-left">@Model.City</div>
+                        </div>
+                        <hr style="width: 100%" />
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <div class="pull-right text-bold">Country:</div>
+                        </div>
+                        @foreach (var country in lstCountry)
+                        {
+                            if (Model.Country == country.Value)
+                            {
+                                <div class="col-sm-8">
+                                    <div class="pull-left">@country.Value</div>
+                                </div>
+                            }
+                        }
+                        <hr style="width: 100%" />
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <div class="pull-right text-bold">Email:</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="pull-left">@Model.Email</div>
+                        </div>
+                        <hr style="width: 100%" />
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <div class="pull-right text-bold">Home Phone:</div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="pull-left">@Model.HomePhone</div>
+                        </div>
+                        <hr style="width: 100%" />
+                    </div>
+
+                </div>
+
+                <div class="col-sm-1">
+                    <button class="btn_edit_user" data-toggle="modal" data-target="#edit_user"><i class="fa fa-edit"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="edit_user" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title " style="display: inline;">Cập nhật thông tin </h4>
+                <button type="button" class="close " data-dismiss="modal" aria-label="Close" style="display: inline;">
+                    <span aria-hidden="true" style="color: red;">&times;</span>
+                </button>
+            </div>
+            <form action="~/Account/ChangeInfo" method="post">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <input type="hidden" name="EmployeeID" value="@Model.EmployeeID" />
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Last Name</label>
+                                <input name="LastName" value="@Model.LastName" type="text" class="form-control" id="exampleInputPassword1" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">First Name</label>
+                                <input name="FirstName" value="@Model.FirstName" type="text" class="form-control" id="exampleInputPassword1" placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Title</label>
+                                <input name="Title" value="@Model.Title" type="text" class="form-control" id="exampleInputPassword1" placeholder="Title">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">BirthDate</label>
+                                        <input name="BirthDate" value="@String.Format("{0:dd/MM/yyyy}", Model.BirthDate)" type="text" class="form-control" id="exampleInputPassword1">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">HireDate</label>
+                                        <input name="HireDate" value="@String.Format("{0:dd/MM/yyyy}", Model.HireDate)" type="text" class="form-control" id="exampleInputPassword1">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Home Phone</label>
+                                        <input name="HomePhone" value="@Model.HomePhone" type="text" class="form-control" id="exampleInputPassword1" placeholder="Home Phone">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Address</label>
+                                        <input name="Address" value="@Model.Address" type="text" class="form-control" id="exampleInputPassword1" placeholder="Address">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">City</label>
+                                        <input name="City" value="@Model.City" type="text" class="form-control" id="exampleInputPassword1" placeholder="City">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Counntry</label>
+                                        <select class="form-control" name="Country">
+                                            <option value="0">-- Choose Country --</option>
+                                            @foreach (var country in SelectListHelper.ListOfCountries())
+                                            {
+                                                if (country.Value == Model.Country)
+                                                {
+                                                    <option value="@country.Value" selected="selected">@country.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@country.Value">@country.Text</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div style="display:block;">
+                                <label for="exampleInputFile">Photo</label>
+                                <div class="input-group">
+                                    <div style="height:140px;width:270px;background-color:lightsteelblue;padding:0">
+                                        <img id="pictureUpload" src="@Model.PhotoPath" alt="avatar" style="height:140px;width:270px;" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div style="display:block;">
+
+                                <input type="text" name="PhotoPath" id="PhotoPath" class="form-control" style="display:inline-block; width:220px" value="@Model.PhotoPath" />
+                                <input type="file" name="FileUpload" id="FileUpload" accept="image/*" style="display:none;" />
+                                <input type="button" id="btnUpload" value="Chọn ảnh" class="btn btn-primary" />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Upload
+                        {
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#FileUpload').trigger('click');
+            });
+            // Bat su kien khi thay doi du lieu cua fileupload
+            $('#FileUpload').change(function () {
+                //Kiem tra trinh duyet co ho tro formdata hay khong
+                if (window.FormData !== undefined) {
+                    //Lay du lieu tren fileupload
+                    var fileUpload = $('#FileUpload').get(0);
+                    var files = fileUpload.files;
+                    //tao doi tuong form data
+                    var formData = new FormData();
+                    formData.append('file', files[0]);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Account/ProcessUpload',
+                        contentType: false, // khong co header
+                        processData: false, //khong xu ly du lieu
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr('src', urlImage);
+                            $('#PhotoPath').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Co loi xay ra: ' + err.statusText);
+                        }
+                    });
+                }
+            })
+        });
+    </script>
+   
+}
+

@@ -1,0 +1,167 @@
+﻿@model LiteCommerce.Admin.Models.EmployeePaginatonResult
+@{
+    ViewBag.Title = "Employeers Manage";
+    int i = 0;
+    List<SelectListItem> listCountry = SelectListHelper.ListOfCountries();
+}
+
+
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form method="GET" action="~/Employee">
+            <div class="row">
+                <div class="col-sm-5">
+
+                    <select name="Country" class="form-control" value="CountryID">
+                        <option value="">--- Choose Country ---</option>
+                        @foreach (var item in listCountry)
+                        {
+                            if (@item.Value == Model.Country)
+                            {
+                                <option value="@item.Value" selected>@item.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+
+
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input name="searchValue" type="text" class="form-control" placeholder="@Model.SearchValue">
+                        <div class="input-group-btn">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-info btn-flat">Seach</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<form action="~/Employee/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px">
+        <div class="col-sm-8">There are <b>@Model.RowCount</b> employees. Page<b> @Model.Page/@Model.PageCount </b></div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a class="btn btn-sm btn-primary btn-ffa" href="~/Employee/Input">Add Employee</a>
+                <button type="submit" name="method" value="delete" class="btn btn-sm btn-danger btn-ffa">Delete Employees</button>
+            </div>
+        </div>
+    </div>
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:15px; color: blue; text-align:center"><input type="checkbox" /></th>
+                        <th style="width:10px; color: blue; text-align:center">#</th>
+                        <th style="width:190px; color: blue;">Basic Infor</th>
+                        <th style="width:19 0px; color: blue;">Address</th>
+                        <th style="width:auto; color: blue;">Contact</th>
+                        <th style="width:220px; color: blue;">Notes</th>
+                        <th style="width:80px; color: blue;">Photo</th>
+                        <th style="width:35px; color: blue;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td align="center"><input type="checkbox" name="employeeIDs" value="@item.EmployeeID" /></td>
+                            <td align="center">@(++i)</td>
+                            <td>
+                                <span style="display:block; font-size: 0.9em;"><b>Full Name :</b>@item.FirstName @item.LastName</span>                                
+                                <span style="display:block; font-size: 0.9em;"><b>Birthdate :</b> @item.BirthDate.ToShortDateString()</span>
+                                <span style="display:block; font-size: 0.9em;"><b>HireDate :</b>  @item.HireDate.ToShortDateString()</span>
+                            </td>
+                            <td>
+                                <span style="display:block; font-size: 0.9em;"><b>Country :</b>@item.Country</span>
+                                <span style="display:block; font-size: 0.9em;"><b>City :</b>@item.City</span>
+                                <span style="display:block; font-size: 0.9em;"><b>Address :</b>@item.Address</span>
+                                
+                            </td>
+                            <td>
+                                <span  style="display:block; font-size: 0.9em;"> <b>HomePhone :</b>@item.HomePhone</span>
+                                <span  style="display:block; font-size: 0.9em;"><b>Email :</b> @item.Email</span>
+                            </td>
+                            <td>
+                                <div style=" display: block; display: -webkit-box; max-width: 100%; height: 58px; margin: 0 auto; font-size: 14px; line-height: 1; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                                    @item.Notes
+                                </div>
+
+                            </td>
+                            <td align="center">
+                                <img src="@item.PhotoPath" alt="@item.PhotoPath" style="max-height:100px;max-width:80px" />
+                            </td>
+
+                            <td>
+                                <a class="btn btn-sm btn-default" href="~/Employee/Input/@item.EmployeeID/">
+                                    <i class="fa fa-edit">
+                                    </i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm pull-right">
+                    
+                    @{
+                        int currentPage = Model.Page;
+                        // Pagination head
+                        if (currentPage - 5 > 0)
+                        {
+                            int prePage = currentPage - 1;
+                            <li><a href="~/Employee?page=1&searchValue=@Model.SearchValue&Country=@Model.Country">‹‹</a></li>
+                            <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@prePage&Country=@Model.Country">‹</a></li>
+                            <li><a href="#">...</a></li>
+                        }
+                        int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
+                        for (int page = startPage; page <= currentPage; page++)
+                        {
+                            if (page == currentPage)
+                            {
+                                <li class="active"><a href="~/Employee?searchValue=@Model.SearchValue&page=@page&Country=@Model.Country">@page</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@page&Country=@Model.Country">@page</a></li>
+                            }
+                        }
+
+                        // Pagination tail
+                        int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
+                        for (int page = currentPage + 1; page <= endPage; page++)
+                        {
+                            if (page == currentPage)
+                            {
+                                <li class="active"><a href="~/Employee?searchValue=@Model.SearchValue&page=@page&Country=@Model.Country">@page</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@page&Country=@Model.Country">@page</a></li>
+                            }
+                        }
+                        if (currentPage + 4 < Model.PageCount)
+                        {
+                            int nextPage = currentPage + 1;
+                            <li><a href="#">...</a></li>
+                            <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@nextPage&Country=@Model.Country">›</a></li>
+                            <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@Model.PageCount&Country=@Model.Country">››</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,158 @@
+﻿@model LiteCommerce.DomainModel.Order
+@{
+
+    int i = 0;
+    decimal total =0;
+}
+
+<div class="box box-info">
+    <div class="box-body">
+        <div class="box-body row">
+            <div class="row">
+                <div class="col-sm-5 ">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Order</h3>
+                        
+                    </div>
+                    <div class="box box-success">
+                        <div class="box-body ">
+                            <table class="table table-bordered table-striped table-hover ">
+                                <tthead>
+                                    <tr>
+                                        
+                                        <th>Attribute</th>
+                                        <th>Values</th>
+                                    </tr>
+                                </tthead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>OrderID </b>
+                                        </td>
+                                        <td>@Model.OrderID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>CustomerID </b>
+                                        </td>
+                                        <td>@Model.CustomerID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>EmployeeID </b>
+                                        </td>
+                                        <td>@Model.EmployeeID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>ShipperID </b>
+                                        </td>
+                                        <td>@Model.ShipperID</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Ship Country </b>
+                                        </td>
+                                        <td>@Model.ShipCountry</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Ship City </b>
+                                        </td>
+                                        <td>@Model.ShipCity</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Ship Address </b>
+                                        </td>
+                                        <td>@Model.ShipAddress</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Order Date </b>
+                                        </td>
+                                        <td>@Model.OrderDate</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Shipped Date </b>
+                                        </td>
+                                        <td>@Model.ShippedDate</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Required Date </b>
+                                        </td>
+                                        <td>@Model.RequiredDate</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Freight </b>
+                                        </td>
+                                        <td>@Model.Freight</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7 ">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Order Details</h3>
+                        <a class="pull-right " style="cursor: pointer;"  onclick="goBack()">Back to list Order</a>
+                        <script>
+                            function goBack() {
+                                window.history.back();
+                            }
+                        </script>
+                    </div>
+                    <div class="box box-success">
+                        <div class="box-body ">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ProductID</th>
+                                        <th>Quantity </th>
+                                        <th>UnitPrice <i>(vnđ)</i></th>
+                                        <th>Discount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewData["Attribute"] as List<LiteCommerce.DomainModel.OrderDetails>)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                @(++i)
+                                            </td>
+                                            <td>
+                                                @item.ProductID
+                                            </td>
+                                            <td>
+                                                @item.Quantity
+                                            </td>
+                                            <td>
+                                                @string.Format(System.Globalization.CultureInfo.GetCultureInfo("id-ID"), "{0:#,##0}", Convert.ToDecimal(item.UnitPrice) * 1000) 
+                                              
+                                            </td>
+                                            <td>
+                                                @item.Discount
+                                            </td>
+                                        </tr>
+                                        total += (item.Quantity * item.UnitPrice) - (Math.Truncate((decimal)item.Discount * item.Quantity * item.UnitPrice));
+                                    }
+
+                                </tbody>
+
+                            </table>
+                            <div style="margin-top:10px;"><b>Total:</b>
+                                <span>@string.Format(System.Globalization.CultureInfo.GetCultureInfo("id-ID"), "{0:#,##0}", Convert.ToDecimal(total) * 1000) vnđ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

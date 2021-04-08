@@ -1,0 +1,146 @@
+﻿@model LiteCommerce.Admin.Models.SupplierPaginationResult
+@{
+    ViewBag.Title = "Manage Supplier";
+    int i = 0;
+    
+}
+
+
+<!-- general form elements -->
+<div class="box box-primary">
+    <!-- form start -->
+    <form role="form">
+        <div class="box-body">
+            <div class="input-group input-group-sm">
+                <form action="~/Supplier" method="get" class="form-control">
+                    <input name="searchValue" type="text" class="form-control" placeholder="nhập từ khóa để tìm kiếm..." value="@Model.SearchValue">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </form>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+    <!-- form start -->
+    <form role="form" action="~/Supplier/Delete" method="post">
+        <div class="container-fluid row" style="margin-bottom:10px">
+            <div class="col-sm-8">
+                There are
+                <b>@Model.RowCount</b> suppliers. Page <b>@Model.Page/@Model.PageCount</b>
+            </div>
+            <div class="col-md-4 text-right">
+                <div class="btn-group">
+                    <a type="button" href="~/Supplier/Input" class="btn btn-primary">Add suppliers</a>
+                    <button type="submit" class="btn btn-danger" name="method" value="delete">Delete suppliers</button>
+                </div>
+            </div>
+        </div>
+        <div class="box-body box box-success">
+            <table class="table table-bordered table-striped">
+                <thead >
+                    <tr>
+                        <th style="width:15px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width:10px">#</th>
+                        <th style="width:auto">Company Name</th>
+                        <th style="width:250px">Address</th>
+                        <th style="width:200px">Contact Info</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+
+                        <tr>
+                            <td style="margin">
+                                <input type="checkbox" name="supplierIDs" value="@item.SupplierID" style="margin: 16px 0px;padding: 0px"/>
+                            </td>
+                            <td>
+                                <div style="margin: 12px 0px; padding: 0px">
+                                    @(++i)
+                                </div>
+                            </td>
+                            <td>
+                                <span style=" display:block;font-size:0.9em;"><b>CompanyName :</b> @item.CompanyName</span>
+                                <span style=" display:block;font-size:0.9em;"><b>ContactTitle :</b> @item.ContactTitle: </span>
+                                <span style=" display:block;font-size:0.9em;"><b>ContactName :</b>@item.ContactName</span>
+                            </td>
+                            <td>
+                                <span style="display:block;font-size:0.9em;"><b>Country :</b>@item.Country</span>
+                                <span style="display:block;font-size:0.9em;"><b>City :</b>@item.City</span>
+                                <span style="display:block;font-size:0.9em;"><b>Address :</b>@item.Address</span>
+                            </td>
+                            <td>
+                                <span style="display:block;font-size:0.9em;" ><b>Phone :</b> @item.Phone</span>
+                                <span style="display:block;font-size:0.9em;" ><b>Fax :</b> @item.Fax</span>
+                                <span style="display:block;font-size:0.9em;" ><b>HomePage :</b> <a href="#">@item.HomePage</a> </span>  
+                            </td>
+                            <td class="text-center">
+                                
+                                <a class="btn btn-sm btn-default " href="~/Supplier/Input/@item.SupplierID/">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm pull-right">
+               
+                @{
+                    int currentPage = Model.Page;
+                    // Pagination head
+                    if (currentPage - 5 > 0)
+                    {
+                        int prePage = currentPage - 1;
+                        <li><a href="~/Supplier?page=1&searchValue=@Model.SearchValue">‹‹</a></li>
+                        <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
+                        <li><a href="#">...</a></li>
+                    }
+                    int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
+                    for (int page = startPage; page <= currentPage; page++)
+                    {
+                        if (page == currentPage)
+                        {
+                            <li class="active"><a href="~/Supplier?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                    }
+
+                    // Pagination tail
+                    int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
+                    for (int page = currentPage + 1; page <= endPage; page++)
+                    {
+                        if (page == currentPage)
+                        {
+                            <li class="active"><a href="~/Supplier?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                    }
+                    if (currentPage + 4 < Model.PageCount)
+                    {
+                        int nextPage = currentPage + 1;
+                        <li><a href="#">...</a></li>
+                        <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
+                        <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
+                    }
+                }
+            </ul>
+        </div>
+    </form>

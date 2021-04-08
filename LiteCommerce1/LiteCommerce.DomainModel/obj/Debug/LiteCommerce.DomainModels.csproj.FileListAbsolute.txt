@@ -1,0 +1,17 @@
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DomainModel\bin\Debug\LiteCommerce.DomainModel.dll
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DomainModel\bin\Debug\LiteCommerce.DomainModel.pdb
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModels.csproj.CoreCompileInputs.cache
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModel.dll
+E:\Lap Trinh Web\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModel.pdb
+E:\LiteCommerce\LiteCommerce.DomainModel\bin\Debug\LiteCommerce.DomainModel.dll
+E:\LiteCommerce\LiteCommerce.DomainModel\bin\Debug\LiteCommerce.DomainModel.pdb
+E:\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModels.csprojAssemblyReference.cache
+E:\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModels.csproj.CoreCompileInputs.cache
+E:\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModel.dll
+E:\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModel.pdb
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DomainModel\bin\Debug\LiteCommerce.DomainModel.dll
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DomainModel\bin\Debug\LiteCommerce.DomainModel.pdb
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModels.csprojAssemblyReference.cache
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModels.csproj.CoreCompileInputs.cache
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModel.dll
+D:\2020\Net Framework\LiteCommerce\LiteCommerce.DomainModel\obj\Debug\LiteCommerce.DomainModel.pdb
